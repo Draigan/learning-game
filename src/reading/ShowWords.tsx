@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "../css/reading.css";
 
-const ShowWords = ({ currentWord, words }) => {
+const ShowWords = ({ currentWord, words, changeWord }) => {
   const [choiceArray, setChoiceArray] = useState([]);
 
   function getRandomWord() {
@@ -47,6 +47,7 @@ const ShowWords = ({ currentWord, words }) => {
             <div
               style={{ backgroundColor: "green" }}
               className="reading-button"
+              onClick={changeWord}
             >
               {choiceArray[index]}
             </div>

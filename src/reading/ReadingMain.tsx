@@ -11,7 +11,7 @@ const ReadingMain = () => {
   console.log(defData); // to get compiler to shut up.
   const [loading, setLoading] = useState(false);
   const [words] = useState([
-    // "Dog",
+    "Dog",
     "Laundy",
     "Yellow",
     "Guitar",
@@ -32,34 +32,34 @@ const ReadingMain = () => {
     "Teeth",
     "Shower",
     "Music",
-    // "Cat",
-    // "Tree",
-    // "House",
-    // "Book",
-    // "Utensils",
-    // "Shirt",
-    // "Jacket",
-    // "Shoes",
-    // "Computer",
-    // "Television",
-    // "Fridge",
-    // "Leaf",
-    // "Star",
-    // "Banana",
-    // "Carrot",
-    // "Toy",
-    // "Train",
-    // "Bus",
-    // "Sky",
-    // "Water",
-    // "Shark",
-    // "Red",
-    // "Green",
-    // "Blue",
-    // "Pencil",
-    // "Crayon",
-    // "Paint",
-    // "Sun",
+    "Cat",
+    "Tree",
+    "House",
+    "Book",
+    "Utensils",
+    "Shirt",
+    "Jacket",
+    "Shoes",
+    "Computer",
+    "Television",
+    "Fridge",
+    "Leaf",
+    "Star",
+    "Banana",
+    "Carrot",
+    "Toy",
+    "Train",
+    "Bus",
+    "Sky",
+    "Water",
+    "Shark",
+    "Red",
+    "Green",
+    "Blue",
+    "Pencil",
+    "Crayon",
+    "Paint",
+    "Sun",
     "Backpack",
     "Summer",
     "Fall",
@@ -141,10 +141,11 @@ const ReadingMain = () => {
     return (
       <div className="reading-main">
         <ShowPictures picData={picData} />
-        <ShowWords currentWord={currentWord} words={words} />
-        <div onClick={changeWord} style={{ backgroundColor: "black" }}>
-          change word
-        </div>
+        <ShowWords
+          currentWord={currentWord}
+          words={words}
+          changeWord={changeWord}
+        />
       </div>
     );
   }
