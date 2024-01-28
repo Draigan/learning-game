@@ -63,8 +63,4 @@ const ShowWords = ({ currentWord, words }) => {
   );
 };
 
-// <div className="reading-button">{choiceArray[0]}</div>
 export default ShowWords;
-// {choices.map((element, index) => {
-//   return { element };
-// })}

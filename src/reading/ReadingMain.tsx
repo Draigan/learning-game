@@ -7,8 +7,8 @@ import { AxiosResponse } from "axios";
 const ReadingMain = () => {
   const [currentWord, setCurrentWord] = useState("tree");
   const [picData, setPicData] = useState([]);
-  const [setDefData] = useState(null);
-  // const { loading, picData, defData } = getDefAndPic(currentWord);
+  const [defData, setDefData] = useState(null);
+  console.log(defData); // to get compiler to shut up.
   const [loading, setLoading] = useState(false);
   const [words] = useState([
     // "Dog",
