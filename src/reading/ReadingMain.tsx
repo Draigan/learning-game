@@ -3,11 +3,11 @@ import "../css/reading.css";
 import ShowPictures from "./ShowPictures";
 import { useEffect, useState } from "react";
 import { getDefData, getPicData } from "./utils/requestData.jsx";
-import useSound from "use-sound";
+import { AxiosResponse } from "axios";
 const ReadingMain = () => {
   const [currentWord, setCurrentWord] = useState("tree");
   const [picData, setPicData] = useState([]);
-  const [defData, setDefData] = useState("");
+  const [setDefData] = useState(null);
   // const { loading, picData, defData } = getDefAndPic(currentWord);
   const [loading, setLoading] = useState(false);
   const [words] = useState([
@@ -82,23 +82,31 @@ const ReadingMain = () => {
     return setCurrentWord(randomWord);
   }
 
-  function playSoundWord(url) {
-    const sound = new Audio(url).play();
+  function playSoundWord(url: string) {
+    return new Audio(url).play();
   }
+  type DefDataType = {
+    data: {
+      phonetics: PhoneticType[];
+    }[];
+  };
+  type PhoneticType = {
+    audio: string;
+  };
   useEffect(() => {
     async function setPicAndDefData() {
       setLoading(true);
 
       // Request data
       const picData = await getPicData(currentWord);
-      const defData = await getDefData(currentWord);
+      const defData: AxiosResponse<DefDataType> = await getDefData(currentWord);
       // Check the requests to make sure all our data is available
       const isMissingData = () => {
         let missingData = true;
         if (picData.length === 0 || defData === undefined) {
           return true; // Important that we return here because defData could be null in the next usage
         }
-        defData.data[0].phonetics.forEach((element) => {
+        defData.data[0].phonetics.forEach((element: any) => {
           if (element.audio !== "") {
             missingData = false;
           }

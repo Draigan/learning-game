@@ -25,14 +25,3 @@ export async function getDefData(keyword: string) {
   }
   return data;
 }
-type PicType = {
-  data: {
-    hits: string[];
-  };
-};
-
-type DefType = {};
-type FetchDataType = {
-  def: DefType;
-  pic: PicType;
-};
