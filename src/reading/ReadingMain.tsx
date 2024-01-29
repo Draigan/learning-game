@@ -7,7 +7,7 @@ import { AxiosResponse } from "axios";
 import { ReadingPoints } from "./ReadingPoints.js";
 const ReadingMain = () => {
   const [currentWord, setCurrentWord] = useState("tree");
-  const [points, setPoints] = useState(10);
+  const [points, setPoints] = useState(0);
   const [picData, setPicData] = useState([]);
   const [defData, setDefData] = useState(null);
   console.log(defData); // to get compiler to shut up.
@@ -83,6 +83,9 @@ const ReadingMain = () => {
   function changeWord() {
     return setCurrentWord(getRandomWord());
   }
+  function resetPoints() {
+    return setPoints(0);
+  }
 
   function playSoundWord(url: string) {
     return new Audio(url).play();
@@ -145,7 +148,7 @@ const ReadingMain = () => {
     return (
       <div className="reading-main">
         <div className="reading-main-points">
-          <ReadingPoints points={points} />
+          <ReadingPoints resetPoints={resetPoints} points={points} />
         </div>
         <div className="reading-main-wordnpic">
           <div>
