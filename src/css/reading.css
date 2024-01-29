@@ -1,16 +1,35 @@
 .reading-main {
   background-color: #282c34;
-  min-height: 100vh;
+  height: 100vh;
   width: 100%;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-around;
+  padding: 10px;
   font-size: calc(10px + 2vmin);
   color: white;
+  gap: 10px;
+}
+
+.reading-main-buttons {
+  width: 100%;
+  display: flex;
+}
+.reading-button-container {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+  font-size: 50px;
+}
+.reading-points-star-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
 }
 
 .reading-button {
+  opacity: 0;
+  animation: fadeIn 200ms ease-in-out forwards;
   border-radius: 50%;
   background-color: grey;
   height: 300px;
@@ -20,6 +39,41 @@
   align-items: center;
   user-select: none;
 }
-.reading-button:active {
-  background-color:;
+
+.reading-points-counter {
+  font-size: 50px;
+}
+
+.reading-points-star {
+  width: 20px;
+}
+.reading-main-wordnpic {
+  height: 100vh;
+  display: flex;
+  flex: 1;
+  justify-content: space-evenly;
+  flex-direction: column;
+  align-items: center;
+}
+.reading-main-points {
+  height: 100vh;
+  /* flex: 1; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.reading-image {
+  opacity: 0;
+  animation: fadeIn 200ms ease-in-out forwards;
+  width: 300px;
+  height: 150px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

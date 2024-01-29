@@ -4,11 +4,14 @@ import ShowPictures from "./ShowPictures";
 import { useEffect, useState } from "react";
 import { getDefData, getPicData } from "./utils/requestData.jsx";
 import { AxiosResponse } from "axios";
+import { ReadingPoints } from "./ReadingPoints.js";
 const ReadingMain = () => {
   const [currentWord, setCurrentWord] = useState("tree");
+  const [points, setPoints] = useState(10);
   const [picData, setPicData] = useState([]);
   const [defData, setDefData] = useState(null);
   console.log(defData); // to get compiler to shut up.
+  console.log(picData); // to get compiler to shut up.
   const [loading, setLoading] = useState(false);
   const [words] = useState([
     "Dog",
@@ -78,8 +81,7 @@ const ReadingMain = () => {
   }
 
   function changeWord() {
-    const randomWord = getRandomWord();
-    return setCurrentWord(randomWord);
+    return setCurrentWord(getRandomWord());
   }
 
   function playSoundWord(url: string) {
@@ -93,6 +95,8 @@ const ReadingMain = () => {
   type PhoneticType = {
     audio: string;
   };
+
+  // This is where we handle our incoming data
   useEffect(() => {
     async function setPicAndDefData() {
       setLoading(true);
@@ -113,11 +117,11 @@ const ReadingMain = () => {
         });
         return missingData;
       };
-
+      // If the data is missing, try a new word, which will update the state and give the whole thing a new request
       if (isMissingData()) {
-        console.log("We are missing data");
         changeWord();
       } else {
+        //Set all the variables we will be using from the data
         setPicData(picData);
         setDefData(defData);
         setLoading(false);
@@ -134,18 +138,28 @@ const ReadingMain = () => {
         playSoundWord(audioURL);
       }
     }
+    // Run the function we just defined
     setPicAndDefData();
   }, [currentWord]);
-
   if (!loading) {
     return (
       <div className="reading-main">
-        <ShowPictures picData={picData} />
-        <ShowWords
-          currentWord={currentWord}
-          words={words}
-          changeWord={changeWord}
-        />
+        <div className="reading-main-points">
+          <ReadingPoints points={points} />
+        </div>
+        <div className="reading-main-wordnpic">
+          <div>
+            <ShowPictures picData={picData} />
+          </div>
+          <div className="reading-main-buttons">
+            <ShowWords
+              currentWord={currentWord}
+              words={words}
+              changeWord={changeWord}
+              setPoints={setPoints}
+            />
+          </div>
+        </div>
       </div>
     );
   }

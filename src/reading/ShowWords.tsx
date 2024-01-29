@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "../css/reading.css";
 
-const ShowWords = ({ currentWord, words, changeWord }) => {
+const ShowWords = ({ currentWord, words, changeWord, setPoints }) => {
   const [choiceArray, setChoiceArray] = useState([]);
 
   function getRandomWord() {
@@ -10,11 +10,11 @@ const ShowWords = ({ currentWord, words, changeWord }) => {
     return randomWord;
   }
 
-  function buildPossibleChoiceArray(currentWord) {
+  function buildPossibleChoiceArray(currentWord: string) {
     // These are the other two choices besides the currentt word
     // We are going to make sure they are not the same before we move on
-    let wordOne;
-    let wordTwo;
+    let wordOne: string;
+    let wordTwo: string;
     do {
       wordOne = getRandomWord();
       wordTwo = getRandomWord();
@@ -31,30 +31,30 @@ const ShowWords = ({ currentWord, words, changeWord }) => {
   useEffect(() => {
     buildPossibleChoiceArray(currentWord);
   }, [currentWord]);
-  console.log(choiceArray);
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "space-evenly",
-        width: "100%",
-        fontSize: 50,
-      }}
-    >
+    <div className="reading-button-container">
       {choiceArray.map((element, index) => {
         if (currentWord === element) {
           return (
             <div
+              key={index}
               style={{ backgroundColor: "green" }}
               className="reading-button"
-              onClick={changeWord}
+              onClick={() => {
+                changeWord();
+                setPoints((prev: number) => prev + 1);
+              }}
             >
               {choiceArray[index]}
             </div>
           );
         } else {
           return (
-            <div style={{ backgroundColor: "red" }} className="reading-button">
+            <div
+              key={index}
+              style={{ backgroundColor: "red" }}
+              className="reading-button"
+            >
               {choiceArray[index]}
             </div>
           );
