@@ -6,10 +6,12 @@ import { getDefData, getPicData } from "./utils/requestData.jsx";
 import { AxiosResponse } from "axios";
 import { ReadingPoints } from "./ReadingPoints.js";
 const ReadingMain = () => {
-  const [currentWord, setCurrentWord] = useState("tree");
+  const [currentWord, setCurrentWord] = useState("Tree");
   const [points, setPoints] = useState(0);
   const [picData, setPicData] = useState([]);
   const [defData, setDefData] = useState(null);
+  const [difficulty, setDifficulty] = useState("easy");
+  const [currentWordSound, setCurrentWordSound] = useState("");
   console.log(defData); // to get compiler to shut up.
   console.log(picData); // to get compiler to shut up.
   const [loading, setLoading] = useState(false);
@@ -129,12 +131,15 @@ const ReadingMain = () => {
         setDefData(defData);
         setLoading(false);
         let audioURL = defData.data[0].phonetics[0].audio;
+
         const arrayToSearchForAudio = defData.data[0].phonetics;
         // We know we have the audio file since isMissingData() == false
         // but we dont know which array contains it.  So we have to look for it
         for (let i = 0; i < arrayToSearchForAudio.length; i++) {
           if (arrayToSearchForAudio[i].audio !== "") {
             audioURL = arrayToSearchForAudio[i].audio;
+            // Set the state of the sound so I can pass it to the images for playing aswell
+            setCurrentWordSound(audioURL);
             break; // We found an audio file and one is enough
           }
         }
@@ -148,18 +153,28 @@ const ReadingMain = () => {
     return (
       <div className="reading-main">
         <div className="reading-main-points">
-          <ReadingPoints resetPoints={resetPoints} points={points} />
+          <ReadingPoints
+            resetPoints={resetPoints}
+            setDifficulty={setDifficulty}
+            difficulty={difficulty}
+            points={points}
+          />
         </div>
         <div className="reading-main-wordnpic">
           <div>
-            <ShowPictures picData={picData} />
+            <ShowPictures
+              currentWordSound={currentWordSound}
+              picData={picData}
+            />
           </div>
           <div className="reading-main-buttons">
             <ShowWords
+              difficulty={difficulty}
               currentWord={currentWord}
               words={words}
               changeWord={changeWord}
               setPoints={setPoints}
+              points={points}
             />
           </div>
         </div>

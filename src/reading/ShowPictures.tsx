@@ -5,9 +5,12 @@ type ImageType = {
 type PropsType = {
   picData: ImageType[];
 };
-const ShowPictures = ({ picData }: PropsType) => {
+const ShowPictures = ({ picData, currentWordSound }: PropsType) => {
+  function handleClickPictures() {
+    return new Audio(currentWordSound).play();
+  }
   return (
-    <div>
+    <div onClick={handleClickPictures}>
       <div>
         {picData.map((image: ImageType, index: number) =>
           // Fancy way of saying show only 4 pictures, since there is no break; in .map

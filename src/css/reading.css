@@ -22,10 +22,6 @@
   width: 100%;
   font-size: 50px;
 }
-.reading-points-star-container {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-}
 
 .reading-button {
   opacity: 0;
@@ -40,8 +36,22 @@
   user-select: none;
 }
 
+.reading-points-star-container {
+  display: grid;
+  min-width: 100px;
+  grid-template-columns: repeat(5, 1fr);
+}
+
 .reading-points-counter {
   font-size: 50px;
+  border-radius: 50%;
+  background-color: #191c21;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  aspect-ratio: 1;
+  margin-bottom: 20px;
 }
 
 .reading-points-star {
@@ -65,8 +75,8 @@
 .reading-image {
   opacity: 0;
   animation: fadeIn 200ms ease-in-out forwards;
-  width: 250;
-  height: 120px;
+  width: 250px;
+  height: 140px;
 }
 
 @keyframes fadeIn {
