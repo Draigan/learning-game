@@ -5,15 +5,43 @@ import { useEffect, useState } from "react";
 import { getDefData, getPicData } from "./utils/requestData.jsx";
 import { AxiosResponse } from "axios";
 import { ReadingPoints } from "./ReadingPoints.js";
+
+type ChoiceArrayType = {
+  firstWord: string;
+  secondWord: string;
+  firstWordURL: string;
+  secondWordURL: string;
+  currentWordURL: string;
+  choiceArray: string[];
+};
+
+type DefDataType = {
+  data: {
+    phonetics: PhoneticType[];
+  }[];
+};
+
+type PhoneticType = {
+  audio: string;
+};
+
 const ReadingMain = () => {
-  const [currentWord, setCurrentWord] = useState("Tree");
+  const [currentWord, setCurrentWord] = useState("CHeese");
   const [points, setPoints] = useState(0);
   const [picData, setPicData] = useState([]);
   const [defData, setDefData] = useState(null);
   const [difficulty, setDifficulty] = useState("easy");
+  const [choiceArray, setChoiceArray] = useState<ChoiceArrayType>({
+    firstWord: "dog",
+    secondWord: "cat",
+    firstWordURL: null,
+    secondWordURL: null,
+    currentWordURL: null,
+    choiceArray: ["dog", "cat", "bird"],
+  });
   const [currentWordSound, setCurrentWordSound] = useState("");
-  console.log(defData); // to get compiler to shut up.
-  console.log(picData); // to get compiler to shut up.
+  console.log(defData);
+  console.log(picData);
   const [loading, setLoading] = useState(false);
   const [words] = useState([
     "Dog",
@@ -75,7 +103,6 @@ const ReadingMain = () => {
     "Mars",
     "Car",
   ]);
-
   function getRandomWord() {
     let randomWord = words[Math.floor(Math.random() * words.length)];
     if (currentWord === randomWord) return getRandomWord();
@@ -92,30 +119,84 @@ const ReadingMain = () => {
   function playSoundWord(url: string) {
     return new Audio(url).play();
   }
-  type DefDataType = {
-    data: {
-      phonetics: PhoneticType[];
-    }[];
-  };
-  type PhoneticType = {
-    audio: string;
-  };
 
-  // This is where we handle our incoming data
+  // This is where we handle our incoming data and set it
   useEffect(() => {
+    // Before we request our data we need to know which data.
+    //So we are going to get the other two multiple choices
+    //because we need to get their sounds
+    function buildPossibleChoiceArray(currentWord: string) {
+      // These are the other two choices besides the currentt word
+      // We are going to make sure they are not the same before we move on
+      let wordOne: string;
+      let wordTwo: string;
+      do {
+        wordOne = getRandomWord();
+        wordTwo = getRandomWord();
+      } while (wordOne === wordTwo);
+      const choiceArray = [currentWord, wordOne, wordTwo];
+
+      //Shuffle the elements
+      for (let i = choiceArray.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        // Swap elements at i and j
+        [choiceArray[i], choiceArray[j]] = [choiceArray[j], choiceArray[i]];
+      }
+      return {
+        firstWord: wordOne,
+        secondWord: wordTwo,
+        firstWordURL: null,
+        secondWordURL: null,
+        currentWordURL: null,
+        choiceArray: choiceArray,
+      };
+    }
     async function setPicAndDefData() {
       setLoading(true);
+      // This is where we declare our choiceArray which is the options in the game
+      // After this we are going to pass is to the other components from here
+      const choiceArray = buildPossibleChoiceArray(currentWord);
 
       // Request data
       const picData = await getPicData(currentWord);
       const defData: AxiosResponse<DefDataType> = await getDefData(currentWord);
+
+      const secondWordAudioData: AxiosResponse<DefDataType> = await getDefData(
+        choiceArray.secondWord,
+      );
+
+      const firstWordAudioData: AxiosResponse<DefDataType> = await getDefData(
+        choiceArray.firstWord,
+      );
+
+      console.log("first word data:", firstWordAudioData);
+      console.log("second word data:", secondWordAudioData);
+
       // Check the requests to make sure all our data is available
       const isMissingData = () => {
         let missingData = true;
-        if (picData.length === 0 || defData === undefined) {
+        if (
+          picData.length === 0 ||
+          defData === undefined ||
+          firstWordAudioData === undefined ||
+          secondWordAudioData === undefined
+        ) {
           return true; // Important that we return here because defData could be null in the next usage
         }
+        // Go through all the indexs and check if any of them contain audio for the currentword
         defData.data[0].phonetics.forEach((element: any) => {
+          if (element.audio !== "") {
+            missingData = false;
+          }
+        });
+
+        firstWordAudioData.data[0].phonetics.forEach((element: any) => {
+          if (element.audio !== "") {
+            missingData = false;
+          }
+        });
+
+        secondWordAudioData.data[0].phonetics.forEach((element: any) => {
           if (element.audio !== "") {
             missingData = false;
           }
@@ -129,10 +210,10 @@ const ReadingMain = () => {
         //Set all the variables we will be using from the data
         setPicData(picData);
         setDefData(defData);
-        setLoading(false);
-        let audioURL = defData.data[0].phonetics[0].audio;
+        let audioURL: string;
 
         const arrayToSearchForAudio = defData.data[0].phonetics;
+
         // We know we have the audio file since isMissingData() == false
         // but we dont know which array contains it.  So we have to look for it
         for (let i = 0; i < arrayToSearchForAudio.length; i++) {
@@ -143,12 +224,33 @@ const ReadingMain = () => {
             break; // We found an audio file and one is enough
           }
         }
-        playSoundWord(audioURL);
+        // Same thing for the other two words
+        for (let i = 0; i < firstWordAudioData.data[0].phonetics.length; i++) {
+          if (firstWordAudioData.data[0].phonetics[i].audio !== "") {
+            choiceArray.firstWordURL =
+              firstWordAudioData.data[0].phonetics[i].audio;
+            break;
+          }
+        }
+        for (let i = 0; i < secondWordAudioData.data[0].phonetics.length; i++) {
+          if (secondWordAudioData.data[0].phonetics[i].audio !== "") {
+            choiceArray.secondWordURL =
+              secondWordAudioData.data[0].phonetics[i].audio;
+            break;
+          }
+        }
+        choiceArray.currentWordURL = audioURL;
+        setChoiceArray(choiceArray);
+        setTimeout(() => {
+          playSoundWord(audioURL);
+        }, 1000);
+        setLoading(false);
       }
     }
     // Run the function we just defined
     setPicAndDefData();
   }, [currentWord]);
+
   if (!loading) {
     return (
       <div className="reading-main">
@@ -171,7 +273,7 @@ const ReadingMain = () => {
             <ShowWords
               difficulty={difficulty}
               currentWord={currentWord}
-              words={words}
+              choiceArrayObject={choiceArray}
               changeWord={changeWord}
               setPoints={setPoints}
               points={points}
