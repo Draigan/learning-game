@@ -1,12 +1,14 @@
 import star from "../assets/star.png";
 type PropType = {
   points: number;
+  setDifficulty: (param: string) => void;
+  difficulty: string;
   resetPoints: () => void;
 };
 export const ReadingPoints = ({
   difficulty,
   points,
-  resetPoints,
+  // resetPoints,
   setDifficulty,
 }: PropType) => {
   function handleDifficulty() {

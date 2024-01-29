@@ -4,6 +4,7 @@ type ImageType = {
 };
 type PropsType = {
   picData: ImageType[];
+  currentWordSound: string;
 };
 const ShowPictures = ({ picData, currentWordSound }: PropsType) => {
   function handleClickPictures() {
