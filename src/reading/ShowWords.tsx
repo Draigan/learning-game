@@ -1,5 +1,5 @@
+import { useRef } from "react";
 import "../css/reading.css";
-
 const ShowWords = ({
   difficulty,
   currentWord,
@@ -15,17 +15,25 @@ const ShowWords = ({
     firstWord,
     choiceArray,
   } = choiceArrayObject;
-  function handlePoints() {
+  const clickable = useRef(true);
+
+  function AddPoint() {
     if (points > 99) return setPoints(0);
     return setPoints((prev: number) => prev + 1);
   }
 
   function handleButtonClick(url: string, isChangeWord: boolean) {
-    if (isChangeWord) setTimeout(() => changeWord(), 1000);
+    if (!clickable.current) return;
+    clickable.current = false;
+    if (isChangeWord)
+      setTimeout(() => {
+        clickable.current = true;
+        AddPoint();
+        changeWord();
+      }, 1000);
     return new Audio(url).play();
   }
 
-  // Modes for difficulty: I have other projects so using inline styles to save time
   // Easy Mode
   if (difficulty === "easy") {
     return (
@@ -39,7 +47,6 @@ const ShowWords = ({
                 className="reading-button"
                 onClick={() => {
                   handleButtonClick(currentWordURL, true);
-                  handlePoints();
                 }}
               >
                 {choiceArray[index]}
@@ -72,7 +79,7 @@ const ShowWords = ({
       </div>
     );
   }
-  // Medium Mode
+  // Hard Mode
   if (difficulty === "hard") {
     return (
       <div className="reading-button-container">
@@ -86,7 +93,6 @@ const ShowWords = ({
                 className="reading-button"
                 onClick={() => {
                   handleButtonClick(currentWordURL, true);
-                  handlePoints();
                 }}
               >
                 {choiceArray[index]}

@@ -26,7 +26,7 @@ type PhoneticType = {
 };
 
 const ReadingMain = () => {
-  const [currentWord, setCurrentWord] = useState("CHeese");
+  const [currentWord, setCurrentWord] = useState("Cheese");
   const [points, setPoints] = useState(0);
   const [picData, setPicData] = useState([]);
   const [defData, setDefData] = useState(null);
