@@ -1,3 +1,4 @@
+import { getChoices } from "./utils/processWords.js";
 import ShowWords from "./ShowWords";
 import "../css/reading.css";
 import ShowPictures from "./ShowPictures";
@@ -30,6 +31,7 @@ const ReadingMain = () => {
   const [points, setPoints] = useState(0);
   const [picData, setPicData] = useState([]);
   const [defData, setDefData] = useState(null);
+  defData ? "cool" : "Shutup"; //shut up compiler
   const [difficulty, setDifficulty] = useState("easy");
   const [choiceArray, setChoiceArray] = useState<ChoiceArrayType>({
     firstWord: "dog",
@@ -40,8 +42,6 @@ const ReadingMain = () => {
     choiceArray: ["dog", "cat", "bird"],
   });
   const [currentWordSound, setCurrentWordSound] = useState("");
-  console.log(defData);
-  console.log(picData);
   const [loading, setLoading] = useState(false);
   const [words] = useState([
     "Dog",
@@ -161,7 +161,6 @@ const ReadingMain = () => {
     "Garage",
     "Plant",
     "Rock",
-    "",
   ]);
   function getRandomWord() {
     let randomWord = words[Math.floor(Math.random() * words.length)];
@@ -169,6 +168,9 @@ const ReadingMain = () => {
     return randomWord;
   }
 
+  useEffect(() => {
+    console.log(getChoices(currentWord, words), "Choices");
+  }, [currentWord]);
   function changeWord() {
     return setCurrentWord(getRandomWord());
   }
@@ -228,9 +230,6 @@ const ReadingMain = () => {
       const firstWordAudioData: AxiosResponse<DefDataType> = await getDefData(
         choiceArray.firstWord,
       );
-
-      console.log("first word data:", firstWordAudioData);
-      console.log("second word data:", secondWordAudioData);
 
       // Check the requests to make sure all our data is available
       const isMissingData = () => {

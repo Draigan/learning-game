@@ -29,9 +29,10 @@ export const ReadingPoints = ({
     return new Audio(`../numbers/en_num_${number}.mp3`).play();
   }
 
-  const elements = Array.from({ length: points }, () => (
+  const elements = Array.from({ length: points }, (_, index) => (
     <img
       className="reading-points-star"
+      key={index}
       src={star}
       alt="Description of the image"
     />

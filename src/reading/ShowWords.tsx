@@ -1,4 +1,4 @@
-import { useRef } from "react";
+// import { useRef } from "react";
 import "../css/reading.css";
 const ShowWords = ({
   difficulty,
@@ -15,7 +15,7 @@ const ShowWords = ({
     firstWord,
     choiceArray,
   } = choiceArrayObject;
-  const clickable = useRef(true);
+  // const clickable = useRef(true);
 
   function AddPoint() {
     if (points > 99) return setPoints(0);
@@ -23,11 +23,11 @@ const ShowWords = ({
   }
 
   function handleButtonClick(url: string, isChangeWord: boolean) {
-    if (!clickable.current) return;
-    clickable.current = false;
+    // if (!clickable.current) return;
+    // clickable.current = false;
     if (isChangeWord)
       setTimeout(() => {
-        clickable.current = true;
+        // clickable.current = true;
         AddPoint();
         changeWord();
       }, 1000);
