@@ -1,3 +1,91 @@
+/* .reading-main { */
+/*   background-color: #282c34; */
+/*   height: 100vh; */
+/*   width: 100%; */
+/*   display: flex; */
+/*   flex-direction: row; */
+/*   align-items: center; */
+/*   justify-content: space-around; */
+/*   padding: 10px; */
+/*   font-size: calc(10px + 2vmin); */
+/*   color: white; */
+/*   gap: 10px; */
+/* } */
+/**/
+/* .reading-main-buttons { */
+/*   width: 100%; */
+/*   display: flex; */
+/* } */
+/* .reading-button-container { */
+/*   display: flex; */
+/*   justify-content: space-evenly; */
+/*   width: 100%; */
+/*   font-size: 50px; */
+/* } */
+/**/
+/* .reading-button { */
+/*   opacity: 0; */
+/*   animation: fadeIn 200ms ease-in-out forwards; */
+/*   border-radius: 50%; */
+/*   background-color: grey; */
+/*   height: 300px; */
+/*   width: 300px; */
+/*   display: flex; */
+/*   justify-content: center; */
+/*   align-items: center; */
+/*   user-select: none; */
+/* } */
+/**/
+/* .reading-points-star-container { */
+/*   display: grid; */
+/*   min-width: 100px; */
+/*   grid-template-columns: repeat(5, 1fr); */
+/* } */
+/**/
+/* .reading-points-counter { */
+/*   font-size: 50px; */
+/*   border-radius: 50%; */
+/*   background-color: #191c21; */
+/*   display: flex; */
+/*   justify-content: center; */
+/*   align-items: center; */
+/*   width: 100%; */
+/*   aspect-ratio: 1; */
+/*   margin-bottom: 20px; */
+/* } */
+/**/
+/* .reading-points-star { */
+/*   width: 20px; */
+/* } */
+/* .reading-main-wordnpic { */
+/*   height: 100vh; */
+/*   display: flex; */
+/*   flex: 1; */
+/*   justify-content: space-evenly; */
+/*   flex-direction: column; */
+/*   align-items: center; */
+/* } */
+/* .reading-main-points { */
+/*   height: 100vh; */
+/*   display: flex; */
+/*   justify-content: center; */
+/*   align-items: center; */
+/* } */
+/* .reading-image { */
+/*   opacity: 0; */
+/*   animation: fadeIn 200ms ease-in-out forwards; */
+/*   width: 250px; */
+/*   height: 140px; */
+/* } */
+/**/
+/* @keyframes fadeIn { */
+/*   from { */
+/*     opacity: 0; */
+/*   } */
+/*   to { */
+/*     opacity: 1; */
+/*   } */
+/* } */
 .reading-main {
   background-color: #282c34;
   height: 100vh;
@@ -6,21 +94,22 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
-  padding: 10px;
-  font-size: calc(10px + 2vmin);
+  padding: 2%; /* Use a percentage for padding */
+  font-size: 2vmin; /* Use viewport units for font size */
   color: white;
-  gap: 10px;
+  gap: 1%; /* Use a percentage for gap */
 }
 
 .reading-main-buttons {
   width: 100%;
   display: flex;
 }
+
 .reading-button-container {
   display: flex;
   justify-content: space-evenly;
   width: 100%;
-  font-size: 50px;
+  font-size: 5vmin; /* Use viewport units for font size */
 }
 
 .reading-button {
@@ -28,8 +117,8 @@
   animation: fadeIn 200ms ease-in-out forwards;
   border-radius: 50%;
   background-color: grey;
-  height: 300px;
-  width: 300px;
+  height: 30vmin; /* Use viewport units for height */
+  width: 30vmin; /* Use viewport units for width */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -38,45 +127,54 @@
 
 .reading-points-star-container {
   display: grid;
-  min-width: 100px;
+  justify-content: center;
+  align-items: center;
+  min-width: 10%; /* Use a percentage for min-width */
   grid-template-columns: repeat(5, 1fr);
 }
 
 .reading-points-counter {
-  font-size: 50px;
+  font-size: 5vmin; /* Use viewport units for font size */
   border-radius: 50%;
   background-color: #191c21;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  width: 20vmin;
   aspect-ratio: 1;
-  margin-bottom: 20px;
+  margin-bottom: 1vmin; /* Use viewport units for margin */
 }
 
 .reading-points-star {
-  width: 20px;
+  width: 3vmin; /* Use viewport units for width */
 }
+
 .reading-main-wordnpic {
   height: 100vh;
   display: flex;
-  flex: 1;
+  width: 90vw;
   justify-content: space-evenly;
   flex-direction: column;
   align-items: center;
 }
+
 .reading-main-points {
   height: 100vh;
-  /* flex: 1; */
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
+.reading-pictures {
+  width: 100%;
+  text-align: center;
+}
+
 .reading-image {
   opacity: 0;
   animation: fadeIn 200ms ease-in-out forwards;
-  width: 250px;
-  height: 140px;
+  width: 22%; /* Use viewport units for width */
+  height: 23vmin; /* Use viewport units for height */
 }
 
 @keyframes fadeIn {

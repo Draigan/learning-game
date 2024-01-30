@@ -263,7 +263,7 @@ const ReadingMain = () => {
           />
         </div>
         <div className="reading-main-wordnpic">
-          <div>
+          <div className="reading-pictures">
             <ShowPictures
               currentWordSound={currentWordSound}
               picData={picData}

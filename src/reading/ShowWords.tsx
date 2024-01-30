@@ -20,7 +20,8 @@ const ShowWords = ({
     return setPoints((prev: number) => prev + 1);
   }
 
-  function handleButtonClick(url: string) {
+  function handleButtonClick(url: string, isChangeWord: boolean) {
+    if (isChangeWord) setTimeout(() => changeWord(), 1000);
     return new Audio(url).play();
   }
 
@@ -37,8 +38,7 @@ const ShowWords = ({
                 style={{ backgroundColor: "green" }}
                 className="reading-button"
                 onClick={() => {
-                  changeWord();
-                  handleButtonClick(currentWordURL);
+                  handleButtonClick(currentWordURL, true);
                   handlePoints();
                 }}
               >
@@ -51,7 +51,7 @@ const ShowWords = ({
                 key={index}
                 style={{ backgroundColor: "red" }}
                 className="reading-button"
-                onClick={() => handleButtonClick(firstWordURL)}
+                onClick={() => handleButtonClick(firstWordURL, false)}
               >
                 {choiceArray[index]}
               </div>
@@ -62,7 +62,7 @@ const ShowWords = ({
                 key={index}
                 style={{ backgroundColor: "red" }}
                 className="reading-button"
-                onClick={() => handleButtonClick(secondWordURL)}
+                onClick={() => handleButtonClick(secondWordURL, false)}
               >
                 {choiceArray[index]}
               </div>
@@ -73,7 +73,7 @@ const ShowWords = ({
     );
   }
   // Medium Mode
-  if (difficulty === "medium") {
+  if (difficulty === "hard") {
     return (
       <div className="reading-button-container">
         {choiceArray.map((element, index) => {
@@ -81,11 +81,11 @@ const ShowWords = ({
             return (
               <div
                 key={index}
-                style={{ backgroundColor: "gray" }}
+                // style={{ backgroundColor: "#300045" }}
+                style={{ backgroundColor: "green" }}
                 className="reading-button"
                 onClick={() => {
-                  changeWord();
-                  handleButtonClick(currentWordURL);
+                  handleButtonClick(currentWordURL, true);
                   handlePoints();
                 }}
               >
@@ -96,9 +96,9 @@ const ShowWords = ({
             return (
               <div
                 key={index}
-                style={{ backgroundColor: "gray" }}
+                style={{ backgroundColor: "blue" }}
                 className="reading-button"
-                onClick={() => handleButtonClick(firstWordURL)}
+                onClick={() => handleButtonClick(firstWordURL, false)}
               >
                 {choiceArray[index]}
               </div>
@@ -107,43 +107,9 @@ const ShowWords = ({
             return (
               <div
                 key={index}
-                style={{ backgroundColor: "gray" }}
+                style={{ backgroundColor: "purple" }}
                 className="reading-button"
-                onClick={() => handleButtonClick(secondWordURL)}
-              >
-                {choiceArray[index]}
-              </div>
-            );
-          }
-        })}
-      </div>
-    );
-  }
-  // Hard Mode
-  if (difficulty === "hard") {
-    return (
-      <div className="reading-button-container">
-        {choiceArray.map((element, index) => {
-          if (currentWord === element) {
-            return (
-              <div
-                key={index}
-                style={{ backgroundColor: "green" }}
-                className="reading-button"
-                onClick={() => {
-                  changeWord();
-                  handlePoints();
-                }}
-              >
-                {choiceArray[index]}
-              </div>
-            );
-          } else {
-            return (
-              <div
-                key={index}
-                style={{ backgroundColor: "red" }}
-                className="reading-button"
+                onClick={() => handleButtonClick(secondWordURL, false)}
               >
                 {choiceArray[index]}
               </div>

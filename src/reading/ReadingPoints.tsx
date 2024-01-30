@@ -13,11 +13,9 @@ export const ReadingPoints = ({
 }: PropType) => {
   function handleDifficulty() {
     if (difficulty === "easy") {
-      return setDifficulty("medium");
-    } else if (difficulty === "medium") {
       return setDifficulty("hard");
     } else {
-      setDifficulty("easy");
+      return setDifficulty("easy");
     }
   }
 
@@ -47,9 +45,10 @@ export const ReadingPoints = ({
         {points}
       </div>
       <div className="reading-points-star-container">{elements}</div>
-      <div>
-        <button onClick={handleDifficulty}> {difficulty} </button>
-      </div>
+      <div
+        style={{ width: "6vh", height: "6vh" }}
+        onClick={handleDifficulty}
+      ></div>
     </div>
   );
 };

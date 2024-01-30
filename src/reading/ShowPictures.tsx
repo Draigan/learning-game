@@ -11,7 +11,7 @@ const ShowPictures = ({ picData, currentWordSound }: PropsType) => {
     return new Audio(currentWordSound).play();
   }
   return (
-    <div onClick={handleClickPictures}>
+    <div style={{}} onClick={handleClickPictures}>
       <div>
         {picData.map((image: ImageType, index: number) =>
           // Fancy way of saying show only 4 pictures, since there is no break; in .map
