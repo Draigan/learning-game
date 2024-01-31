@@ -2,14 +2,15 @@ import star from "../assets/star.png";
 type PropType = {
   points: number;
   setDifficulty: (param: string) => void;
+  setPoints: (param: number) => void;
   difficulty: string;
   resetPoints: () => void;
 };
 export const ReadingPoints = ({
   difficulty,
   points,
-  // resetPoints,
   setDifficulty,
+  setPoints,
 }: PropType) => {
   function handleDifficulty() {
     if (difficulty === "easy") {
@@ -37,6 +38,7 @@ export const ReadingPoints = ({
       alt="Description of the image"
     />
   ));
+
   return (
     <div>
       <div
@@ -50,6 +52,14 @@ export const ReadingPoints = ({
         style={{ width: "6vh", height: "6vh" }}
         onClick={handleDifficulty}
       ></div>
+      <button
+        onClick={() => {
+          localStorage.clear();
+          setPoints(0);
+        }}
+      >
+        CLEAR
+      </button>
     </div>
   );
 };

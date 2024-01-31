@@ -1,12 +1,10 @@
-// import { useRef } from "react";
 import "../css/reading.css";
 const ShowWords = ({
   difficulty,
   currentWord,
   changeWord,
   setPoints,
-  choiceArrayObject,
-  points,
+  choices,
 }) => {
   const {
     firstWordURL,
@@ -14,23 +12,41 @@ const ShowWords = ({
     currentWordURL,
     firstWord,
     choiceArray,
-  } = choiceArrayObject;
-  // const clickable = useRef(true);
+  } = choices;
+  let clickable = true;
 
   function AddPoint() {
-    if (points > 99) return setPoints(0);
-    return setPoints((prev: number) => prev + 1);
+    let currentPoints: string | void | number = localStorage.getItem("points");
+    console.log("Storage", currentPoints);
+    if (parseInt(currentPoints) > 99) return setPoints(0);
+    if (!currentPoints) {
+      let pointsForStorage = 0;
+      currentPoints = localStorage.setItem(
+        "points",
+        pointsForStorage.toString(),
+      );
+    }
+    let getPoints = localStorage.getItem("points");
+    let pointsInInt = parseInt(getPoints);
+    let pointsForStorage = pointsInInt + 1;
+    // If the local storage doesnt exist, create it
+
+    localStorage.setItem("points", pointsForStorage.toString());
+    setPoints(pointsForStorage);
+    console.log(getPoints);
   }
 
   function handleButtonClick(url: string, isChangeWord: boolean) {
-    // if (!clickable.current) return;
-    // clickable.current = false;
+    if (!clickable) return;
+    clickable = false;
     if (isChangeWord)
       setTimeout(() => {
-        // clickable.current = true;
         AddPoint();
         changeWord();
       }, 1000);
+    setTimeout(() => {
+      clickable = true;
+    }, 1000);
     return new Audio(url).play();
   }
 
@@ -89,7 +105,7 @@ const ShowWords = ({
               <div
                 key={index}
                 // style={{ backgroundColor: "#300045" }}
-                style={{ backgroundColor: "green" }}
+                style={{ backgroundColor: "#314266" }}
                 className="reading-button"
                 onClick={() => {
                   handleButtonClick(currentWordURL, true);
@@ -102,7 +118,7 @@ const ShowWords = ({
             return (
               <div
                 key={index}
-                style={{ backgroundColor: "blue" }}
+                style={{ backgroundColor: "#314266" }}
                 className="reading-button"
                 onClick={() => handleButtonClick(firstWordURL, false)}
               >
@@ -113,7 +129,7 @@ const ShowWords = ({
             return (
               <div
                 key={index}
-                style={{ backgroundColor: "purple" }}
+                style={{ backgroundColor: "#314266" }}
                 className="reading-button"
                 onClick={() => handleButtonClick(secondWordURL, false)}
               >

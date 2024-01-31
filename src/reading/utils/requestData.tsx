@@ -1,18 +1,27 @@
-import axios from "axios";
-// import { getChoices } from "./processWords";
+import axios, { AxiosResponse } from "axios";
+import { getChoices } from "./processWords";
 
-export async function getPicData(keyword: string) {
+type PicDataType = {
+  hits: PicItem[];
+  data: [];
+};
+type PicItem = {
+  webformatURL: string;
+};
+export async function getPicData(
+  keyword: string,
+): Promise<PicItem[] | undefined> {
   let api = "19800860-fd81fde52b5686725fdcf6309";
-  let data;
+  let data: AxiosResponse<PicDataType>;
   try {
-    data = await axios.get(
+    data = await axios.get<PicDataType>(
       `https://pixabay.com/api/?key=${api}&q=${keyword}&image_type=photo`,
     );
-    data = data.data.hits;
+    return data.data.hits;
   } catch (err) {
     console.error(err);
   }
-  return data;
+  return undefined;
 }
 
 export async function getDefData(keyword: string) {
@@ -29,15 +38,102 @@ export async function getDefData(keyword: string) {
 
 // Here we are going to fetch ALL the data necessary for a single round in the reading game
 // Then we are going to sanitize the data
-// export async function getAllReadingData(currentWord: string, words: string[]) {
-//   const {
-//     firstWordURL,
-//     secondWordURL,
-//     currentWordURL,
-//     firstWord,
-//     choiceArray,
-//   } = getChoices(currentWord, words);
-//   const rawPicData = await getPicData(currentWord);
-//
-//   return {};
-// }
+export async function getAllReadingData(keyword: string, words: string[]) {
+  const choices = getChoices(keyword, words);
+  let rawPicData; //: AxiosResponse<>;
+  let rawCurrentWordDefData; //: AxiosResponse<>;
+  let rawFirstWordDefData; //: AxiosResponse<>;
+  let rawSecondWordDefData; //: AxiosResponse<>;
+
+  try {
+    rawPicData = await getPicData(choices.currentWord);
+    rawCurrentWordDefData = await getDefData(choices.currentWord);
+    rawFirstWordDefData = await getDefData(choices.firstWord);
+    rawSecondWordDefData = await getDefData(choices.secondWord);
+  } catch (err) {
+    console.error(
+      "Exception in intial request\n",
+      err,
+      "The choices were:\n",
+      choices,
+    );
+    choices.noErrors = false;
+    return choices;
+  }
+  console.log(
+    "HEADDDDER:",
+    rawPicData,
+    rawFirstWordDefData,
+    rawSecondWordDefData,
+    rawCurrentWordDefData,
+  );
+  // Check for missing elements
+  if (
+    rawPicData.length < 8 ||
+    !rawFirstWordDefData ||
+    !rawCurrentWordDefData ||
+    !rawSecondWordDefData ||
+    !rawCurrentWordDefData.data ||
+    !rawFirstWordDefData.data ||
+    !rawSecondWordDefData.data ||
+    !rawCurrentWordDefData.data[0].phonetics ||
+    !rawSecondWordDefData.data[0].phonetics ||
+    !rawFirstWordDefData.data[0].phonetics
+  ) {
+    console.log("picData had a length of 0");
+    choices.noErrors = false;
+    return choices;
+  }
+
+  // Check for missing audio
+  if (
+    rawCurrentWordDefData &&
+    !rawCurrentWordDefData?.data[0].phonetics.some(
+      (element) => element.audio !== "",
+    )
+  ) {
+    console.log("Missing audio for currentWord");
+    choices.noErrors = false;
+    return choices;
+  }
+
+  if (
+    rawFirstWordDefData &&
+    !rawFirstWordDefData?.data[0].phonetics.some(
+      (element) => element.audio !== "",
+    )
+  ) {
+    console.log("Missing audio for firstword");
+    choices.noErrors = false;
+    return choices;
+  }
+
+  if (
+    rawSecondWordDefData &&
+    !rawSecondWordDefData?.data[0].phonetics.some(
+      (element) => element.audio !== "",
+    )
+  ) {
+    console.log("Missing audio for secondword");
+    choices.noErrors = false;
+    return choices;
+  }
+
+  // Set the picture data
+  choices.picData = rawPicData;
+
+  // Set the audio data
+  choices.currentWordURL = rawCurrentWordDefData.data[0].phonetics.find(
+    (element) => element.audio !== "",
+  ).audio;
+
+  choices.firstWordURL = rawFirstWordDefData.data[0].phonetics.find(
+    (element) => element.audio !== "",
+  ).audio;
+
+  choices.secondWordURL = rawSecondWordDefData.data[0].phonetics.find(
+    (element) => element.audio !== "",
+  ).audio;
+
+  return choices;
+}

@@ -32,5 +32,7 @@ export function getChoices(currentWord: string, words: string[]) {
     firstWordURL: null,
     secondWordURL: null,
     choiceArray: choiceArray,
+    picData: null,
+    noErrors: true,
   };
 }
