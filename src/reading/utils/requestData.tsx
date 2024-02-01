@@ -8,6 +8,7 @@ type PicDataType = {
 type PicItem = {
   webformatURL: string;
 };
+
 export async function getPicData(
   keyword: string,
 ): Promise<PicItem[] | undefined> {
@@ -123,17 +124,27 @@ export async function getAllReadingData(keyword: string, words: string[]) {
   choices.picData = rawPicData;
 
   // Set the audio data
-  choices.currentWordURL = rawCurrentWordDefData.data[0].phonetics.find(
-    (element) => element.audio !== "",
-  ).audio;
 
-  choices.firstWordURL = rawFirstWordDefData.data[0].phonetics.find(
-    (element) => element.audio !== "",
-  ).audio;
+  // If we can find the US version, choose it, otherwise pick what we have
+  function setAudio(current, choices, key) {
+    let usVersion = current.data[0].phonetics.find(
+      (element) => element.audio !== "" && element.audio.slice(-6) === "us.mp3",
+    );
 
-  choices.secondWordURL = rawSecondWordDefData.data[0].phonetics.find(
-    (element) => element.audio !== "",
-  ).audio;
+    let altVersion = current.data[0].phonetics.find(
+      (element) => element.audio !== "",
+    );
+
+    if (usVersion) {
+      choices[key] = usVersion.audio;
+      console.log("Using Us version", usVersion);
+    } else {
+      choices[key] = altVersion.audio;
+    }
+  }
+  setAudio(rawCurrentWordDefData, choices, "currentWordURL");
+  setAudio(rawFirstWordDefData, choices, "firstWordURL");
+  setAudio(rawSecondWordDefData, choices, "secondWordURL");
 
   return choices;
 }

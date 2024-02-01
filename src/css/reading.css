@@ -36,9 +36,6 @@
   align-items: center;
   user-select: none;
 }
-.reading-button:active {
-  animation: flash 1s forwards;
-}
 
 .reading-points-star-container {
   display: grid;
@@ -97,29 +94,6 @@
     opacity: 0;
   }
   to {
-    opacity: 1;
-  }
-}
-
-@keyframes flash {
-  0% {
-    opacity: 1;
-    background-color: red;
-  }
-  20% {
-    opacity: 0;
-    background-color: red;
-  }
-  40% {
-    opacity: 1;
-  }
-  60% {
-    opacity: 0;
-  }
-  80% {
-    opacity: 1;
-  }
-  100% {
     opacity: 1;
   }
 }

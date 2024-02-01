@@ -16,24 +16,7 @@ const ShowWords = ({
   let clickable = true;
 
   function AddPoint() {
-    let currentPoints: string | void | number = localStorage.getItem("points");
-    console.log("Storage", currentPoints);
-    if (parseInt(currentPoints) > 99) return setPoints(0);
-    if (!currentPoints) {
-      let pointsForStorage = 0;
-      currentPoints = localStorage.setItem(
-        "points",
-        pointsForStorage.toString(),
-      );
-    }
-    let getPoints = localStorage.getItem("points");
-    let pointsInInt = parseInt(getPoints);
-    let pointsForStorage = pointsInInt + 1;
-    // If the local storage doesnt exist, create it
-
-    localStorage.setItem("points", pointsForStorage.toString());
-    setPoints(pointsForStorage);
-    console.log(getPoints);
+    setPoints((prev) => prev + 1);
   }
 
   function handleButtonClick(url: string, isChangeWord: boolean) {

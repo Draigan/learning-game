@@ -1,4 +1,5 @@
 import star from "../assets/star.png";
+import LongPressButton from "./LongPressButton";
 type PropType = {
   points: number;
   setDifficulty: (param: string) => void;
@@ -9,8 +10,8 @@ type PropType = {
 export const ReadingPoints = ({
   difficulty,
   points,
-  setDifficulty,
   setPoints,
+  setDifficulty,
 }: PropType) => {
   function handleDifficulty() {
     if (difficulty === "easy") {
@@ -48,19 +49,24 @@ export const ReadingPoints = ({
         {points}
       </div>
       <div className="reading-points-star-container">{elements}</div>
-      <div
-        style={{ width: "6vh", height: "6vh" }}
-        onClick={handleDifficulty}
-      ></div>
-      <button
-        onClick={() => {
-          localStorage.clear();
+      <LongPressButton
+        buttonText={difficulty}
+        functionToRun={() => {
+          handleDifficulty();
+        }}
+      />
+      <LongPressButton
+        buttonText="Set to 100"
+        functionToRun={() => {
+          setPoints(100);
+        }}
+      />
+      <LongPressButton
+        buttonText="CLEAR"
+        functionToRun={() => {
           setPoints(0);
         }}
-      >
-        CLEAR
-      </button>
+      />
     </div>
   );
 };
-// <button onClick={resetPoints}> RESET </button>

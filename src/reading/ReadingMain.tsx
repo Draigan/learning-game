@@ -5,6 +5,7 @@ import ShowPictures from "./ShowPictures";
 import { useEffect, useState } from "react";
 import { getAllReadingData } from "./utils/requestData.jsx";
 import { ReadingPoints } from "./ReadingPoints.js";
+import { ReadingRewardPages } from "./ReadingRewardPages.js";
 
 type ChoiceArrayType = {
   firstWord: string;
@@ -62,9 +63,7 @@ const ReadingMain = () => {
       setLoading(true);
       let data = await getAllReadingData(currentWord, words);
       if (data.noErrors) {
-        console.log(data, "DATTTTTTTA");
         setChoices(data);
-        // setChoiceArray(data);
         setTimeout(() => {
           playSoundWord(data.currentWordURL);
         }, 500);
@@ -76,7 +75,55 @@ const ReadingMain = () => {
     getTurnData();
   }, [currentWord]);
 
+  useEffect(() => {
+    function StoreDataOnMount() {
+      let currentPoints: string | void | number =
+        localStorage.getItem("points");
+      if (!currentPoints) {
+        let pointsForStorage = 0;
+        setPoints(0);
+        return (currentPoints = localStorage.setItem(
+          "points",
+          pointsForStorage.toString(),
+        ));
+      }
+      console.log("Storage", typeof currentPoints);
+      setPoints(parseInt(currentPoints));
+    }
+    StoreDataOnMount();
+  }, []);
+
+  // This is where we store to local storage before leaving page
+  const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+    // Your data to be stored
+    const dataToStore = points;
+
+    // Convert the data to a string (localStorage can only store strings)
+    localStorage.setItem("points", JSON.stringify(dataToStore));
+
+    const confirmationMessage = "Are you sure you want to leave?";
+    event.returnValue = confirmationMessage;
+    return confirmationMessage;
+  };
+
+  useEffect(() => {
+    // Add event listener when the component is mounted
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    // Remove the event listener when the component is unmounted
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, [points]);
+
   if (!loading) {
+    if (points === 100) {
+      return (
+        <div>
+          <ReadingRewardPages setPoints={setPoints} />
+        </div>
+      );
+    }
     return (
       <div className="reading-main">
         <div className="reading-main-points">
