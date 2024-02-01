@@ -33,6 +33,9 @@ const LongPressButton = (props: Props) => {
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseUp}
+      onTouchStart={handleMouseDown}
+      onTouchEnd={handleMouseUp}
+      onTouchCancel={handleMouseUp}
     >
       {buttonText}
     </button>
