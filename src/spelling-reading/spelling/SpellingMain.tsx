@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import SpellingButtons from "./SpellingButtons";
 import { SpellingInput } from "./SpellingInput";
-import { useIsWinCondition } from "./utils/isWinCondition";
+import { checkForWinCondition } from "./utils/checkForWinCondition";
 import "../../css/spelling.css";
 import { SpellingHeader } from "./SpellingHeader";
 import { SpellingImage } from "./SpellingImage";
+import { useCustomEffect } from "./useCustomEffect";
 type ImageType = {
   webformatURL: string;
 };
@@ -28,9 +29,7 @@ export const SpellingMain = (props: Props) => {
     setPoints,
   } = props;
   const [inputValue, setInputValue] = useState<string>("");
-  console.log("Currentword from main", currentWord);
-  console.log("inputValue from main", inputValue);
-  const isWin = useIsWinCondition(currentWord.toUpperCase(), inputValue);
+  const isWin = checkForWinCondition(currentWord.toUpperCase(), inputValue);
 
   useEffect(() => {
     if (isWin) {

@@ -27,7 +27,7 @@ export const PointsButtons = (props: Props) => {
     return (
       <div>
         <LongPressButton
-          buttonText="Settings"
+          buttonText="CloseSet"
           functionToRun={() => {
             handleVisible();
           }}
@@ -73,7 +73,7 @@ export const PointsButtons = (props: Props) => {
   } else {
     return (
       <LongPressButton
-        buttonText="Settings"
+        buttonText="OpenSet"
         functionToRun={() => {
           handleVisible();
         }}
