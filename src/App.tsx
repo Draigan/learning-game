@@ -1,12 +1,7 @@
 import "./App.css";
-import ReadingMain from "./reading/ReadingMain";
+import SpellingReadingController from "./spelling-reading/SpellingReadingController";
 
 function App() {
-  return (
-    <div className="app-main">
-      <ReadingMain />
-    </div>
-  );
+  return <SpellingReadingController />;
 }
-
 export default App;

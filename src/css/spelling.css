@@ -1,0 +1,64 @@
+.spelling-main {
+  padding-left: 5%;
+  display: flex;
+  justify-content: start;
+  flex-direction: column;
+  align-items: center;
+  gap: 1vh;
+}
+/* Button container styles */
+.buttons-container {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 40px;
+  justify-content: center;
+  align-items: center;
+}
+/* Button styles */
+.button {
+  font-size: 3vmin;
+  width: 10vmin;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #3498db;
+  border-radius: 50%;
+  background-color: #3498db;
+  aspect-ratio: 1/1;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+  user-select: none;
+}
+
+.button:hover {
+  background-color: #2980b9;
+}
+
+.spelling-image-container {
+  text-align: center;
+}
+
+.spelling-image {
+  width: 25%;
+}
+
+h1 {
+  width: 100%;
+  text-align: center;
+  margin-top: 1vh;
+}
+
+input {
+  margin: 0;
+  margin-bottom: 3vh;
+  text-align: center;
+  background-color: transparent;
+  border: none;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  pointer-events: none;
+  font-size: 5vh;
+  padding: 0;
+  color: white;
+}
