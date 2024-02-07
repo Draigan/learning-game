@@ -5,7 +5,6 @@ import { checkForWinCondition } from "./utils/checkForWinCondition";
 import "../../css/spelling.css";
 import { SpellingHeader } from "./SpellingHeader";
 import { SpellingImage } from "./SpellingImage";
-import { useCustomEffect } from "./useCustomEffect";
 type ImageType = {
   webformatURL: string;
 };
