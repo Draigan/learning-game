@@ -78,6 +78,7 @@
 .reading-main-points {
   height: 100vh;
   display: flex;
+  width: 15%;
   justify-content: center;
   align-items: center;
   flex-direction: column;

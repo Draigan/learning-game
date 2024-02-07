@@ -129,6 +129,7 @@ function SpellingReadingController() {
         </div>
         <SpellingMain
           picData={choices.picData}
+          setPoints={setPoints}
           currentWord={currentWord}
           setGameState={setGameState}
           setIsNewTurn={setIsNewTurn}

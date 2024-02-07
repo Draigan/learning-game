@@ -15,6 +15,7 @@ type Props = {
   lockedTo: string;
   currentWordSound: string;
   setIsNewTurn: React.Dispatch<React.SetStateAction<boolean>>;
+  setPoints: React.Dispatch<React.SetStateAction<number>>;
 };
 export const SpellingMain = (props: Props) => {
   const {
@@ -24,6 +25,7 @@ export const SpellingMain = (props: Props) => {
     picData,
     currentWord,
     currentWordSound,
+    setPoints,
   } = props;
   const [inputValue, setInputValue] = useState<string>("");
   console.log("Currentword from main", currentWord);
@@ -38,6 +40,7 @@ export const SpellingMain = (props: Props) => {
           setGameState("reading");
         }
         setIsNewTurn((prev) => !prev);
+        setPoints((prev) => prev + 1);
       }, 1300);
     }
   }, [inputValue]);

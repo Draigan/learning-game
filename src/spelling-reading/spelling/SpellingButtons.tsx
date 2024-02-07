@@ -16,9 +16,7 @@ const SpellingButtons = (props: Props) => {
   };
 
   function playSound(letter: string) {
-    return new Audio(
-      `../../../public/letters/${letter.toUpperCase()}.wav`,
-    ).play();
+    return new Audio(`/letters/${letter.toUpperCase()}.wav`).play();
   }
 
   const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";

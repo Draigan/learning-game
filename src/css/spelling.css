@@ -17,7 +17,7 @@
 /* Button styles */
 .button {
   font-size: 3vmin;
-  width: 10vmin;
+  width: 7vmin;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -40,7 +40,7 @@
 }
 
 .spelling-image {
-  width: 25%;
+  height: 100px;
 }
 
 h1 {
