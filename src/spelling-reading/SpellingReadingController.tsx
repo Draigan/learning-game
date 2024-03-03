@@ -26,7 +26,7 @@ function SpellingReadingController() {
   type picDataType = {
     webformatURL: string;
   };
-  const [difficulty, setDifficulty] = useState("easy");
+  const [difficulty, setDifficulty] = useState("hard");
   const [currentWord, setCurrentWord] = useState("Cheese");
 
   const [choices, setChoices] = useState<ChoiceArrayType>({
