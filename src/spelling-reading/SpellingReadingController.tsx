@@ -5,12 +5,14 @@ import { wordList } from "./reading/data/wordList";
 import { getAllReadingData } from "./reading/utils/requestData";
 import { PointsMain } from "./points/PointsMain";
 import { useStoreDataOnMount } from "./hooks/useStoreDataOnMount";
+import useFontChange from "./hooks/useFontChange";
 
 function SpellingReadingController() {
   // Array of words to use
   const words = wordList;
   // Endpoints to get the points from local storage and store them
   const { points, setPoints } = useStoreDataOnMount();
+  const { font } = useFontChange(points);
   const [gameState, setGameState] = useState<"spelling" | "reading">(
     "spelling",
   );
@@ -91,7 +93,7 @@ function SpellingReadingController() {
 
   if (!loading && gameState === "reading" && lockedTo !== "spelling") {
     return (
-      <div className="app-main">
+      <div className="app-main" style={{ fontFamily: font }}>
         <PointsMain
           points={points}
           setDifficulty={setDifficulty}
@@ -116,7 +118,7 @@ function SpellingReadingController() {
   }
   if (!loading && gameState === "spelling" && lockedTo !== "reading") {
     return (
-      <div className="app-main">
+      <div className="app-main" style={{ fontFamily: font }}>
         <div className="reading-main-points">
           <PointsMain
             points={points}
