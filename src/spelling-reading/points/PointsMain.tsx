@@ -1,6 +1,7 @@
 import { SetStateAction } from "react";
 import star from "../../assets/star.png";
 import { PointsButtons } from "./PointsButtons";
+import "../../css/points.css";
 type PropType = {
   points: number;
   setDifficulty: (param: string) => void;
@@ -36,7 +37,7 @@ export const PointsMain = ({
   ));
 
   return (
-    <div className="reading-main-points">
+    <div className="points-container">
       <div
         className="reading-points-counter"
         onClick={() => playNumberSound(points)}

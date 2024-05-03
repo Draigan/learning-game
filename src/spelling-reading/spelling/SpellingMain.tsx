@@ -46,7 +46,6 @@ export const SpellingMain = (props: Props) => {
   if (true) {
     return (
       <div className="spelling-main">
-        <SpellingImage picData={picData} currentWordSound={currentWordSound} />
         <SpellingHeader currentWord={currentWord} inputValue={inputValue} />
         <SpellingInput inputValue={inputValue} />
         <SpellingButtons

@@ -1,0 +1,26 @@
+.points-container {
+  height: 100vh;
+}
+.reading-points-star-container {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  min-width: 15%; /* Use a percentage for min-width */
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.reading-points-counter {
+  font-size: 5vmin; /* Use viewport units for font size */
+  border-radius: 50%;
+  background-color: #191c21;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20vmin;
+  aspect-ratio: 1;
+  margin-bottom: 1vmin; /* Use viewport units for margin */
+}
+
+.reading-points-star {
+  width: 2.5vh; /* Use viewport units for width */
+}
