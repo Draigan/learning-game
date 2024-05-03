@@ -4,7 +4,6 @@ import { SpellingInput } from "./SpellingInput";
 import { checkForWinCondition } from "./utils/checkForWinCondition";
 import "../../css/spelling.css";
 import { SpellingHeader } from "./SpellingHeader";
-import { SpellingImage } from "./SpellingImage";
 type ImageType = {
   webformatURL: string;
 };
@@ -22,7 +21,6 @@ export const SpellingMain = (props: Props) => {
     lockedTo,
     setGameState,
     setIsNewTurn,
-    picData,
     currentWord,
     currentWordSound,
     setPoints,
