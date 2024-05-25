@@ -192,6 +192,59 @@ export const generalWordList = [
   "Your",
 ];
 
-export const wordList = caterpillarBookArray
-  .filter((item, index) => caterpillarBookArray.indexOf(item) === index)
-  .concat(generalWordList);
+const animals = [
+  "dog",
+  "cat",
+  "elephant",
+  "lion",
+  "tiger",
+  "giraffe",
+  "zebra",
+  "hippo",
+  "bear",
+  "wolf",
+  "monkey",
+  "rabbit",
+  "koala",
+  "panda",
+  "sloth",
+  "cheetah",
+  "rhino",
+  "kangaroo",
+  "fox",
+  "deer",
+  "horse",
+  "cow",
+  "sheep",
+  "goat",
+  "pig",
+  "chicken",
+  "duck",
+  "goose",
+  "turkey",
+  "peacock",
+  "eagle",
+  "hawk",
+  "falcon",
+  "owl",
+  "parrot",
+  "penguin",
+  "seagull",
+  "albatross",
+  "swan",
+  "flamingo",
+  "crocodile",
+  "alligator",
+  "snake",
+  "lizard",
+  "turtle",
+  "frog",
+  "toad",
+  "salamander",
+  "newt",
+];
+
+export const wordList = animals;
+
+// .filter((item, index) => animals.indexOf(item) === index)
+// .concat(generalWordList);
