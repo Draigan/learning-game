@@ -30,7 +30,7 @@ export const SpellingMain = (props: Props) => {
 
   useEffect(() => {
     if (isWin) {
-      setTimeout(() => new Audio(currentWordSound).play(), 400);
+      setTimeout(() => new Audio(currentWordSound).play(), 800);
       setTimeout(() => {
         if (lockedTo !== "spelling") {
           setGameState("reading");
