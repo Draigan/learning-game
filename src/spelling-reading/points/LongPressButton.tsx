@@ -12,7 +12,7 @@ const LongPressButton = (props: Props) => {
     timer = setTimeout(() => {
       setPressing(true);
       functionToRun();
-    }, 2000); // Adjust the duration for your desired long-press time
+    }, 5000); // Adjust the duration for your desired long-press time
   };
 
   const handleMouseUp = () => {

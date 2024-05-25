@@ -12,6 +12,7 @@ function SpellingReadingController() {
   const words = wordList;
   // Endpoints to get the points from local storage and store them
   const { points, setPoints } = useStoreDataOnMount();
+  console.log("POINTS", points);
   const { font } = useFontChange(points);
   const [gameState, setGameState] = useState<"spelling" | "reading">(
     "spelling",

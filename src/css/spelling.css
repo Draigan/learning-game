@@ -1,24 +1,23 @@
 .spelling-main {
-  padding-left: 5%;
   display: flex;
-  justify-content: start;
+  justify-content: center;
   flex-direction: column;
   align-items: center;
   gap: 1vh;
-  height: 100vh;
+  width: 100%;
 }
 /* Button container styles */
 .buttons-container {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 8%;
+  gap: 7%;
+  width: 70vw;
   justify-content: center;
   align-items: center;
 }
 /* Button styles */
 .button {
   font-size: 3vmin;
-  width: 7vmin;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -37,6 +36,9 @@
 }
 
 .spelling-image-container {
+  text-align: center;
+}
+.spelling-word-form {
   text-align: center;
 }
 

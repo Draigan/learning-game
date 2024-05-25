@@ -1,4 +1,8 @@
-export const SpellingHeader = ({ inputValue, currentWord }) => {
+export const SpellingHeader = ({
+  inputValue,
+  currentWord,
+  currentWordSound,
+}) => {
   const expectedLetter = currentWord[inputValue.length]?.toUpperCase();
 
   function isCurrentLetter(letter: string, index: number) {
@@ -7,8 +11,12 @@ export const SpellingHeader = ({ inputValue, currentWord }) => {
     else return false;
   }
 
+  function handleClick() {
+    return new Audio(currentWordSound).play();
+  }
+
   return (
-    <div>
+    <div onClick={handleClick}>
       <h1>
         {currentWord.split("").map((letter: string, index: number) => {
           if (isCurrentLetter(letter, index))
